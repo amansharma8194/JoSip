@@ -1,0 +1,6 @@
+[debug] [2022-01-02T17:57:22.515Z] ----------------------------------------------------------------------
+[debug] [2022-01-02T17:57:22.517Z] Command:       M:\node js\node.exe C:\Users\saturday\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-01-02T17:57:22.517Z] CLI Version:   10.0.1
+[debug] [2022-01-02T17:57:22.518Z] Platform:      win32
+[debug] [2022-01-02T17:57:22.518Z] Node Version:  v16.13.0
+[debug] [2022-01-02T17:57:22.519Z] Time:          Sun Jan 02 2022 23:27:22 GMT+0530 (India Standard Time)
