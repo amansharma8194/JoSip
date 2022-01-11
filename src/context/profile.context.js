@@ -1,17 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/function-component-definition */
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth, database } from '../misc/Firebase';
 
 const ProfileContext = createContext();
-export const Profileprovider = ({ children }) => {
+export const ProfileProvider = ({ children }) => {
   const [Profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  let userRef;
   useEffect(() => {
-    const authunSub = auth.onAuthStateChanged(authObj => {
-      userRef = database.ref(`/profiles/${authObj.uid}`);
+    let userRef;
+    const authunsub = auth.onAuthStateChanged(authObj => {
       if (authObj) {
+        userRef = database.ref(`/profiles/${authObj.uid}`);
         userRef.on('value', snap => {
           const { name, CreatedAt } = snap.val();
           const data = {
@@ -20,26 +20,25 @@ export const Profileprovider = ({ children }) => {
             uid: authObj.uid,
             email: authObj.email,
           };
-          setIsLoading(false);
           setProfile(data);
+          setIsLoading(false);
         });
       } else {
-        if (userRef) {
-          userRef.off();
-        }
-        setIsLoading(false);
         setProfile(null);
+        setIsLoading(false);
       }
     });
+
     return () => {
-      authunSub();
       if (userRef) {
         userRef.off();
       }
+      authunsub();
     };
   }, []);
+
   return (
-    <ProfileContext.Provider value={(Profile, isLoading)}>
+    <ProfileContext.Provider value={{ Profile, isLoading }}>
       {children}
     </ProfileContext.Provider>
   );
