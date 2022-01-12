@@ -1,13 +1,21 @@
 /* eslint-disable react/function-component-definition */
 import React from 'react';
-import { Button, Divider, Drawer, Icon } from 'rsuite';
+import { Alert, Button, Divider, Drawer, Icon } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
+import { database } from '../../misc/Firebase';
 import EditableInput from '../EditableInput';
+import ProviderBlock from './ProviderBlock';
 
 export const Dashboard = ({ onSignOut }) => {
   const { Profile } = useProfile();
   const onSave = async newData => {
-    console.log(newData);
+    const nameUserRef = database.ref(`/profiles/${Profile.uid}`).child('name');
+    try {
+      await nameUserRef.set(newData);
+      Alert.success('Nickname has been changed', 3000);
+    } catch (err) {
+      Alert.error(err.message, 3000);
+    }
   };
   return (
     <>
@@ -16,6 +24,7 @@ export const Dashboard = ({ onSignOut }) => {
       </Drawer.Header>
       <Drawer.Body>
         <h3>Hey ,{Profile.name}</h3>
+        <ProviderBlock />
         <Divider />
         <EditableInput
           initialvalue={Profile.name}

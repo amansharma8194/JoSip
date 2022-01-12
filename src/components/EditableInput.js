@@ -39,6 +39,7 @@ const EditableInput = ({
           value={input}
           placeholder={placeholder}
           onChange={onInputChange}
+          autoComplete="off"
         />
         <InputGroup.Button onClick={onEditClick}>
           <Icon icon={isEditable ? 'close' : 'edit2'} />
