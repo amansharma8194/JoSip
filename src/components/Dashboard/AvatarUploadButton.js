@@ -52,13 +52,14 @@ const AvatarUploadButton = () => {
       const uploadAvatarResult = await avatarFileRef.put(blob, {
         cacheControl: `public,max-age=${3600 * 24 * 3}`,
       });
-      const downloadAvatarUrl = uploadAvatarResult.ref.getDownloadURL();
+      const downloadAvatarUrl = await uploadAvatarResult.ref.getDownloadURL();
       const databaseRef = database
         .ref(`/profiles/${Profile.uid}`)
         .child('avatar');
       databaseRef.set(downloadAvatarUrl);
       Alert.success('Avatar has been uploaded', 3000);
       setIsLoading(false);
+      close();
     } catch (err) {
       Alert.error(err.message, 3000);
       setIsLoading(false);
@@ -85,7 +86,7 @@ const AvatarUploadButton = () => {
             onChange={onInputfileChange}
           />
         </label>
-        <Modal show={isOpen} close={close}>
+        <Modal show={isOpen} onHide={close}>
           <Modal.Header>
             <Modal.Title>Adjust and upload new avatar</Modal.Title>
           </Modal.Header>
