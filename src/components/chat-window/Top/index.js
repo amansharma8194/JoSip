@@ -1,8 +1,10 @@
 /* eslint-disable react/function-component-definition */
-import React from 'react';
+import React, { memo } from 'react';
+import { useCurrentRoom } from '../../../context/current-room.context';
 
 const TopChatWindow = () => {
-  return <div>TopChatWindow</div>;
+  const name = useCurrentRoom(v => v.name);
+  return <div>To{name}</div>;
 };
 
-export default TopChatWindow;
+export default memo(TopChatWindow);

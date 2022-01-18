@@ -2,7 +2,7 @@
 import React from 'react';
 
 const BottomChatwindow = () => {
-  return <div>BottomChatwindow</div>;
+  return <div>Bottom</div>;
 };
 
 export default BottomChatwindow;
