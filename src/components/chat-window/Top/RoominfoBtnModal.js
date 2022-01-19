@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Modal } from 'rsuite';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { useModalToggle } from '../../../misc/custom-hooks';
@@ -31,4 +31,4 @@ const RoominfoBtnModal = () => {
   );
 };
 
-export default RoominfoBtnModal;
+export default memo(RoominfoBtnModal);

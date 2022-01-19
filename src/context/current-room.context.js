@@ -1,9 +1,10 @@
+/* eslint-disable react/function-component-definition */
 import React from 'react';
 import { createContext, useContextSelector } from 'use-context-selector';
 
 const currentRoomContext = createContext();
 
-export const currentRoomProvider = ({ children, data }) => {
+export const CurrentRoomProvider = ({ children, data }) => {
   return (
     <currentRoomContext.Provider value={data}>
       {children}

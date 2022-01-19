@@ -12,14 +12,16 @@ const TopChatWindow = () => {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
-        <h4>
+        <h4 className="text-disappear d-flex align-items-center">
           <Icon
             componentClass={Link}
             icon="arrow-circle-left"
             size="2x"
             to="/"
             className={
-              isMobile ? 'd-inline-block p-0 mr-0 text-blue link-unstyled' : ''
+              isMobile
+                ? 'd-inline-block p-0 mr-0 text-blue link-unstyled'
+                : 'd-none'
             }
           />
           <span className="text-disappear">{name}</span>

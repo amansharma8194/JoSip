@@ -2,8 +2,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { Loader } from 'rsuite';
-// eslint-disable-next-line no-unused-vars
-import { currentRoomProvider } from '../../context/current-room.context';
+import { CurrentRoomProvider } from '../../context/current-room.context';
 import ChatBottom from '../../components/chat-window/Bottom';
 import Messages from '../../components/chat-window/messages';
 import ChatTop from '../../components/chat-window/Top';
@@ -26,7 +25,7 @@ const Chat = () => {
   };
 
   return (
-    <currentRoomProvider data={currentRoomdata}>
+    <CurrentRoomProvider data={currentRoomdata}>
       <div className="chat-top">
         <ChatTop />
       </div>
@@ -36,7 +35,7 @@ const Chat = () => {
       <div className="chat-bottom">
         <ChatBottom />
       </div>
-    </currentRoomProvider>
+    </CurrentRoomProvider>
   );
 };
 
