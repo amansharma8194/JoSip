@@ -11,9 +11,7 @@ const RoomItem = ({ room }) => {
         <h4 className="text-disappear">{name}</h4>
         <TimeAgo
           datetime={
-            lastmessage
-              ? new Date(lastmessage.author.CreatedAt)
-              : new Date(CreatedAt)
+            lastmessage ? new Date(lastmessage.CreatedAt) : new Date(CreatedAt)
           }
           className="font-normal text-black-45"
         />

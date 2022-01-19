@@ -5,6 +5,7 @@ import { Alert, Button, Modal } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
 import { useModalToggle } from '../../misc/custom-hooks';
 import { database, Storage } from '../../misc/Firebase';
+import { getUserUpdates } from '../../misc/helpers';
 import ProfileAvatar from './ProfileAvatar';
 
 const fileInputTypes = '.jpg,.png,.jpeg';
@@ -53,10 +54,13 @@ const AvatarUploadButton = () => {
         cacheControl: `public,max-age=${3600 * 24 * 3}`,
       });
       const downloadAvatarUrl = await uploadAvatarResult.ref.getDownloadURL();
-      const databaseRef = database
-        .ref(`/profiles/${Profile.uid}`)
-        .child('avatar');
-      databaseRef.set(downloadAvatarUrl);
+      const updates = await getUserUpdates(
+        Profile.uid,
+        'avatar',
+        downloadAvatarUrl,
+        database
+      );
+      await database.ref().update(updates);
       Alert.success('Avatar has been uploaded', 3000);
       setIsLoading(false);
       close();

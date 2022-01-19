@@ -3,6 +3,7 @@ import React from 'react';
 import { Alert, Button, Divider, Drawer, Icon } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
 import { database } from '../../misc/Firebase';
+import { getUserUpdates } from '../../misc/helpers';
 import EditableInput from '../EditableInput';
 import AvatarUploadButton from './AvatarUploadButton';
 import ProviderBlock from './ProviderBlock';
@@ -10,9 +11,14 @@ import ProviderBlock from './ProviderBlock';
 export const Dashboard = ({ onSignOut }) => {
   const { Profile } = useProfile();
   const onSave = async newData => {
-    const nameUserRef = database.ref(`/profiles/${Profile.uid}`).child('name');
     try {
-      await nameUserRef.set(newData);
+      const updates = await getUserUpdates(
+        Profile.uid,
+        'name',
+        newData,
+        database
+      );
+      await database.ref().update(updates);
       Alert.success('Nickname has been changed', 3000);
     } catch (err) {
       Alert.error(err.message, 3000);
