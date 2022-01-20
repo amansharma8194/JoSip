@@ -15,21 +15,18 @@ const ProfileinfoBtnModal = ({ profile, ...btnProps }) => {
         {shortName}
       </Button>
       <Modal show={isOpen} onHide={close}>
-        <Modal.Head>
+        <Modal.Header>
           <Modal.Title>{name}</Modal.Title>
-        </Modal.Head>
+        </Modal.Header>
         <Modal.Body className="text-center">
           <ProfileAvatar
             src={avatar}
             name={name}
             className="width-200 height-200 img-fullsize font-huge"
           />
-          <h4 className="mt-2">name</h4>
+          <h4 className="mt-2">{name}</h4>
           <p>Member Since {MemberSince}</p>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={close}>Close</Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

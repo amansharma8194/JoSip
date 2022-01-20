@@ -19,12 +19,12 @@ const { StringType } = Schema.Types;
 
 const SchemaModal = Schema.Model({
   name: StringType().isRequired('Chat name is Required'),
-  desription: StringType().isRequired('Description is Required'),
+  description: StringType().isRequired('Description is Required'),
 });
 
 const INITIAL_FORM = {
   name: '',
-  desription: '',
+  description: '',
 };
 
 const CreateNewRoomModal = () => {
@@ -79,7 +79,7 @@ const CreateNewRoomModal = () => {
             <FormGroup>
               <ControlLabel>Description</ControlLabel>
               <FormControl
-                name="desription"
+                name="description"
                 placeholder="Enter room Desription..."
                 componentClass="textarea"
                 rows={5}
