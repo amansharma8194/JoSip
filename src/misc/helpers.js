@@ -35,3 +35,6 @@ export async function getUserUpdates(userId, keyToUpdate, value, database) {
   });
   return updates;
 }
+export function transformToAdminsArr(snapVal) {
+  return snapVal ? Object.keys(snapVal) : [];
+}

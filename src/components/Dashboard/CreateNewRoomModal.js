@@ -13,7 +13,7 @@ import {
 } from 'rsuite';
 import firebase from 'firebase/app';
 import { useModalToggle } from '../../misc/custom-hooks';
-import { database } from '../../misc/Firebase';
+import { auth, database } from '../../misc/Firebase';
 
 const { StringType } = Schema.Types;
 
@@ -43,6 +43,9 @@ const CreateNewRoomModal = () => {
     const newRoomData = {
       ...FormValue,
       CreatedAt: firebase.database.ServerValue.TIMESTAMP,
+      admins: {
+        [auth.currentUser.uid]: true,
+      },
     };
     try {
       await database.ref('rooms').push(newRoomData);
