@@ -4,7 +4,7 @@ import { Button, Modal } from 'rsuite';
 import { useModalToggle } from '../../../misc/custom-hooks';
 import ProfileAvatar from '../../Dashboard/ProfileAvatar';
 
-const ProfileinfoBtnModal = ({ profile, ...btnProps }) => {
+const ProfileinfoBtnModal = ({ profile, children, ...btnProps }) => {
   const shortName = profile.name.split(' ')[0];
   const { isOpen, Open, close } = useModalToggle();
   const { name, avatar, CreatedAt } = profile;
@@ -27,6 +27,12 @@ const ProfileinfoBtnModal = ({ profile, ...btnProps }) => {
           <h4 className="mt-2">{name}</h4>
           <p>Member Since {MemberSince}</p>
         </Modal.Body>
+        <Modal.Footer>
+          {children}
+          <Button block onClick={close}>
+            Close
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );

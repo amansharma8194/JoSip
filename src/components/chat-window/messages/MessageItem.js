@@ -1,12 +1,20 @@
 /* eslint-disable react/function-component-definition */
 import React from 'react';
+import { Button } from 'rsuite';
 import TimeAgo from 'timeago-react';
+import { useCurrentRoom } from '../../../context/current-room.context';
+import { auth } from '../../../misc/Firebase';
 import ProfileAvatar from '../../Dashboard/ProfileAvatar';
 import PresenceDot from '../../PresenceDot';
 import ProfileinfoBtnModal from './ProfileinfoBtnModal';
 
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, onAdminClick }) => {
   const { author, CreatedAt, text } = message;
+  const isAdmin = useCurrentRoom(v => v.isAdmin);
+  const admins = useCurrentRoom(v => v.admins);
+  const isMsgAuthorAdmin = admins.includes(author.uid);
+  const isAuthor = auth.currentUser.uid === author.uid;
+  const canGrantAdmin = isAdmin && !isAuthor;
   return (
     <li className="padded mb-1">
       <div className="d-flex align-items-center font-bolder mb-1">
@@ -21,7 +29,13 @@ const MessageItem = ({ message }) => {
           profile={author}
           className="ml-1 p-0 text-black"
           appearance="link"
-        />
+        >
+          {canGrantAdmin && (
+            <Button block color="blue" onClick={() => onAdminClick(author.uid)}>
+              {isMsgAuthorAdmin ? 'Remove Admin Granted' : 'Give Admin Granted'}
+            </Button>
+          )}
+        </ProfileinfoBtnModal>
         <TimeAgo
           datetime={CreatedAt}
           className="font-normal text-black-45 ml-2"
