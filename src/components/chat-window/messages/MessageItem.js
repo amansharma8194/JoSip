@@ -10,7 +10,7 @@ import PresenceDot from '../../PresenceDot';
 import IconBtnControl from './IconBtnControl';
 import ProfileinfoBtnModal from './ProfileinfoBtnModal';
 
-const MessageItem = ({ message, onAdminClick, handleLike }) => {
+const MessageItem = ({ message, onAdminClick, handleLike, handleDelete }) => {
   const { author, CreatedAt, text, likes, likeCount } = message;
   const isMobile = useMediaQuery('(max-width:992px)');
   const isAdmin = useCurrentRoom(v => v.isAdmin);
@@ -53,10 +53,18 @@ const MessageItem = ({ message, onAdminClick, handleLike }) => {
           {...(isLiked ? { color: 'red' } : {})}
           isVisible={canShowIcons}
           iconName="heart"
-          tooltip="Like this message"
+          tooltip="Like"
           onClick={() => handleLike(message.id)}
           badgeContent={likeCount}
         />
+        {isAuthor && (
+          <IconBtnControl
+            isVisible={canShowIcons}
+            iconName="close"
+            tooltip="Delete"
+            onClick={() => handleDelete(message.id)}
+          />
+        )}
       </div>
       <div>
         <span className="word-break-all">{text}</span>
