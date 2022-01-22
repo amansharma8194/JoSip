@@ -7,6 +7,7 @@ import { useHover } from '../../../misc/custom-hooks';
 import { auth } from '../../../misc/Firebase';
 import ProfileAvatar from '../../Dashboard/ProfileAvatar';
 import PresenceDot from '../../PresenceDot';
+import IconBtnControl from './IconBtnControl';
 import ProfileinfoBtnModal from './ProfileinfoBtnModal';
 
 const MessageItem = ({ message, onAdminClick }) => {
@@ -44,6 +45,14 @@ const MessageItem = ({ message, onAdminClick }) => {
         <TimeAgo
           datetime={CreatedAt}
           className="font-normal text-black-45 ml-2"
+        />
+        <IconBtnControl
+          {...(true ? { color: 'red' } : {})}
+          isVisible
+          iconName="heart"
+          tooltip="Like this message"
+          onClick={() => {}}
+          badgeContent={5}
         />
       </div>
       <div>
