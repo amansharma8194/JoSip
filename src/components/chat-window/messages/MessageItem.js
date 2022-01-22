@@ -8,10 +8,22 @@ import { auth } from '../../../misc/Firebase';
 import ProfileAvatar from '../../Dashboard/ProfileAvatar';
 import PresenceDot from '../../PresenceDot';
 import IconBtnControl from './IconBtnControl';
+import ImgBtnModal from './ImgBtnModal';
 import ProfileinfoBtnModal from './ProfileinfoBtnModal';
 
+const renderFile = file => {
+  if (file.ContentType.includes('image')) {
+    return (
+      <div className="height-200">
+        <ImgBtnModal src={file.url} name={file.name} />
+      </div>
+    );
+  }
+  return <a href={file.url}>Download {file.name}</a>;
+};
+
 const MessageItem = ({ message, onAdminClick, handleLike, handleDelete }) => {
-  const { author, CreatedAt, text, likes, likeCount } = message;
+  const { author, CreatedAt, text, file, likes, likeCount } = message;
   const isMobile = useMediaQuery('(max-width:992px)');
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
@@ -67,7 +79,8 @@ const MessageItem = ({ message, onAdminClick, handleLike, handleDelete }) => {
         )}
       </div>
       <div>
-        <span className="word-break-all">{text}</span>
+        {text && <span className="word-break-all">{text}</span>}
+        {file && renderFile(file)}
       </div>
     </li>
   );
