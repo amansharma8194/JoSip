@@ -17,7 +17,7 @@ const IconBtnControl = ({
   return (
     <div
       className="ml-2"
-      style={{ Visibility: isVisible ? 'visible' : 'hidden' }}
+      style={{ visibility: isVisible ? 'Visible' : 'hidden' }}
     >
       <ConditionalBadge condition={badgeContent}>
         <Whisper
