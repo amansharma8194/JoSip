@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
 import { auth, database, Storage } from '../../../misc/Firebase';
-import { transformToArray } from '../../../misc/helpers';
+import { GroupBy, transformToArray } from '../../../misc/helpers';
 import MessageItem from './MessageItem';
 
 const Messages = () => {
@@ -103,20 +103,34 @@ const Messages = () => {
     },
     [chatId, messages]
   );
-
+  const renderMessages = () => {
+    const Groups = GroupBy(messages, item =>
+      new Date(item.CreatedAt).toDateString()
+    );
+    const items = [];
+    Object.keys(Groups).forEach(date => {
+      items.push(
+        <li key={date} className="text-center mb-1">
+          {date}
+        </li>
+      );
+      const msgs = Groups[date].map(msg => (
+        <MessageItem
+          key={msg.id}
+          message={msg}
+          onAdminClick={onAdminClick}
+          handleLike={handleLike}
+          handleDelete={handleDelete}
+        />
+      ));
+      items.push(...msgs);
+    });
+    return items;
+  };
   return (
     <ul className="msg-list custom-scroll">
       {isChatEmpty && <li>No Messages yet</li>}
-      {canShowMessages &&
-        messages.map(msg => (
-          <MessageItem
-            key={msg.id}
-            message={msg}
-            onAdminClick={onAdminClick}
-            handleLike={handleLike}
-            handleDelete={handleDelete}
-          />
-        ))}
+      {canShowMessages && renderMessages()}
     </ul>
   );
 };
