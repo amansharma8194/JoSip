@@ -1,7 +1,6 @@
 /* eslint-disable react/function-component-definition */
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { useState } from 'react/cjs/react.development';
 import { Alert, Button, Icon, InputGroup, Modal, Uploader } from 'rsuite';
 import { useModalToggle } from '../../../misc/custom-hooks';
 import { Storage } from '../../../misc/Firebase';
